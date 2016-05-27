@@ -1,0 +1,11 @@
+aniso8601
+Flask
+itsdangerous
+Jinja2
+MarkupSafe
+pocket-api
+python-dateutil
+pytz
+requests
+six
+Werkzeug
