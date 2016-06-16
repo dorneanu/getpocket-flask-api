@@ -3,7 +3,25 @@
 import requests
 import json
 from pocket import Pocket, PocketException
-from flaskapp import app, rest_api
+
+
+class RestAPI:
+
+    """ REST API for the Pocket API """
+
+    def __init__(self, app, host=None, port=None):
+        self.host = host
+        self.port = port
+        self.app = app
+
+    def set_pocket(self, pocket):
+        self.pocket = pocket
+
+    def get_pocket(self):
+        return self.pocket
+
+    def run(self):
+        self.app.run(host=self.app.config['HOST'], port=self.app.config['PORT'])
 
 
 class PocketAPI:
@@ -80,18 +98,3 @@ class PocketAPI:
         except PocketException as e:
             print(e.message)
             return None
-
-    def test(self):
-        return "bla"
-
-if __name__ == '__main__':
-
-    # Init pocket API
-    p = PocketAPI(
-        consumer_key=app.config['POCKET_CONSUMER_KEY'],
-        access_token=app.config['POCKET_ACCESS_TOKEN'])
-    p.connect()
-
-    # Init and run flask API
-    rest_api.set_pocket(p)
-    rest_api.run()
